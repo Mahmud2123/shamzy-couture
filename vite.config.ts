@@ -26,4 +26,7 @@ export default defineConfig({
       input: './index.html',
     },
   },
+  define: {
+    // Makes VITE_API_URL available at build time
+  },
 });

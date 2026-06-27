@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: shamzy-couture-api
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install && npx prisma generate
+    startCommand: npx tsx server.ts
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
