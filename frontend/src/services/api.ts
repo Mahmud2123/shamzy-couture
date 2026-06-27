@@ -1,12 +1,17 @@
+// src/services/api.ts
 import axios from 'axios';
 
+// VITE_API_URL already has /api at the end (from Vercel env)
+// Or use localhost for development
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL 
-    ? `${import.meta.env.VITE_API_URL}/api`
-    : 'http://localhost:3001/api',
-  headers: { 'Content-Type': 'application/json' },
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3001/api',
+  headers: { 
+    'Content-Type': 'application/json' 
+  },
+  withCredentials: true,
 });
 
+// Request interceptor - add auth token
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('shamzy_token');
   if (token) {
@@ -15,6 +20,7 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Response interceptor - handle 401 errors
 api.interceptors.response.use(
   (response) => response,
   (error) => {
