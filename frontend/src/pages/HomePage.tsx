@@ -24,7 +24,7 @@ export default function HomePage() {
       <section className="relative bg-stone-900 text-white min-h-[85vh] flex items-center overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-30"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&h=900&fit=crop')" }}
+          style={{ backgroundImage: "url('images/background.png')" }}
         />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <p className="text-amber-400 text-sm tracking-widest uppercase mb-4 font-semibold">

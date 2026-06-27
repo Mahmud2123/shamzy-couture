@@ -29,3 +29,19 @@
     -webkit-line-clamp: 2;
   }
 }
+
+/* Add to index.css or App.css */
+.hero-background {
+  background-image: url('/images/background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Parallax effect */
+}
+
+/* For mobile optimization */
+@media (max-width: 640px) {
+  .hero-background {
+    background-attachment: scroll;
+  }
+}
