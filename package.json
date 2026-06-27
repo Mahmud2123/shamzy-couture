@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+        "dev": "vite",
     "dev:api": "tsx watch server.ts",
     "dev:all": "concurrently \"npm run dev:api\" \"npm run dev\"",
     "build": "vite build",
@@ -13,7 +13,8 @@
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio",
     "prisma:seed": "tsx prisma/seed.ts",
-    "setup": "npm install && npx prisma generate && npx prisma migrate dev --name init && npm run prisma:seed"
+    "setup": "npm install && npx prisma generate && npx prisma migrate dev --name init && npm run prisma:seed",
+    "vercel-build": "npm run build"
   },
   "dependencies": {
     "@prisma/client": "^5.10.0",
