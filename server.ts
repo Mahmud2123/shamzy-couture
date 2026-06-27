@@ -13,6 +13,25 @@ const PORT = 3001;
 app.use(cors({ origin: '*' }));
 app.use(express.json());
 
+
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://shamzy-couture.vercel.app',
+  // add your custom domain here if you set one up
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+}));
+
+
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });

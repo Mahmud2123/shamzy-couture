@@ -1,4 +1,4 @@
-import { prisma, requireAdmin, ok, err, setCors } from '../../_helpers.js';
+import { prisma, requireAdmin, ok, err, setCors } from '../_helpers.js';
 
 export default async function handler(req: any, res: any) {
   setCors(res);

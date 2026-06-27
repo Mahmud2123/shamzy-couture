@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import bcrypt from 'bcryptjs';
-import { prisma, requireAdmin, ok, err, setCors, audit } from '../../../_helpers.js';
+import { prisma, requireAdmin, ok, err, setCors, audit } from '../../_helpers.js';
 
 const updateSchema = z.object({
   name: z.string().min(2).optional(),

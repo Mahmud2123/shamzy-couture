@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { prisma, requireAdmin, ok, err, setCors, audit } from '../../../_helpers.js';
+import { prisma, requireAdmin, ok, err, setCors, audit } from '../../_helpers.js';
 
 const updateSchema = z.object({
   status: z.enum(['PENDING', 'CONFIRMED', 'IN_PRODUCTION', 'SHIPPED', 'DELIVERED', 'CANCELLED']).optional(),

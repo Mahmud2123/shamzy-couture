@@ -1,7 +1,12 @@
+// api/_helpers.ts
 import { PrismaClient } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 
-export const prisma = new PrismaClient();
+// Singleton Prisma client for serverless
+const globalForPrisma = global as unknown as { prisma: PrismaClient };
+export const prisma = globalForPrisma.prisma || new PrismaClient();
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+
 export const JWT_SECRET = process.env.JWT_SECRET || 'shamzy-super-secret-key-2024';
 
 export function ok(res: any, data: any, status = 200) {
@@ -13,7 +18,7 @@ export function err(res: any, message: string, status = 400) {
 }
 
 export function setCors(res: any) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', process.env.FRONTEND_URL || '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 }
