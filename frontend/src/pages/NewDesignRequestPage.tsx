@@ -85,7 +85,7 @@ export default function NewDesignRequestPage() {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-semibold text-stone-700 mb-1.5">
-                  Budget (USD) <span className="font-normal text-stone-400">optional</span>
+                  Budget (NGN) <span className="font-normal text-stone-400">optional</span>
                 </label>
                 <input
                   type="number"

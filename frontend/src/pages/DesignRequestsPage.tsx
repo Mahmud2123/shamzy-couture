@@ -80,7 +80,7 @@ export default function DesignRequestsPage() {
                       <h3 className="font-bold text-stone-800 truncate">{req.title}</h3>
                       <p className="text-stone-500 text-sm mt-1 line-clamp-2">{req.description}</p>
                       <div className="flex items-center gap-3 mt-2">
-                        {req.budget && <span className="text-xs text-stone-500">Budget: ${req.budget}</span>}
+                        {req.budget && <span className="text-xs text-stone-500">Budget: #{req.budget}</span>}
                         {req.deadline && (
                           <span className="text-xs text-stone-500">
                             Deadline: {new Date(req.deadline).toLocaleDateString()}

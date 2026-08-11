@@ -62,7 +62,7 @@ export default function ProductDetailPage() {
               {product.category}
             </p>
             <h1 className="text-3xl font-bold text-stone-900 mb-4">{product.name}</h1>
-            <p className="text-4xl font-bold text-stone-900 mb-6">${product.price.toFixed(2)}</p>
+            <p className="text-4xl font-bold text-stone-900 mb-6">#{product.price.toFixed(2)}</p>
             <p className="text-stone-600 leading-relaxed mb-8">{product.description}</p>
 
             {/* Stock */}

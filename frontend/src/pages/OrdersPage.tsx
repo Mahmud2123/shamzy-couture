@@ -60,7 +60,7 @@ export default function OrdersPage() {
                       <span className={`px-3 py-1 rounded-full text-xs font-semibold ${STATUS_COLORS[order.status]}`}>
                         {order.status.replace('_', ' ')}
                       </span>
-                      <span className="text-lg font-bold text-stone-900">${order.totalAmount.toFixed(2)}</span>
+                      <span className="text-lg font-bold text-stone-900">#{order.totalAmount.toFixed(2)}</span>
                       {expandedId === order.id ? <FiChevronUp size={16} className="text-stone-400" /> : <FiChevronDown size={16} className="text-stone-400" />}
                     </div>
                   </div>
@@ -103,7 +103,7 @@ export default function OrdersPage() {
                           </div>
                           <div className="text-right">
                             <p className="text-stone-500">×{item.quantity}</p>
-                            <p className="font-semibold text-stone-800">${(item.price * item.quantity).toFixed(2)}</p>
+                            <p className="font-semibold text-stone-800">#{(item.price * item.quantity).toFixed(2)}</p>
                           </div>
                         </div>
                       ))}

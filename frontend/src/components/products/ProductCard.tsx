@@ -61,8 +61,12 @@ export default function ProductCard({ product }: ProductCardProps) {
         </p>
         <div className="flex items-center justify-between">
           <span className="text-lg font-bold text-stone-900">
-            ${product.price.toFixed(2)}
-          </span>
+  ₦{product.price.toLocaleString('en-NG', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}
+</span>
+
           <span className={`text-xs px-2 py-1 rounded-full font-medium ${
             product.stock > 5
               ? 'bg-green-100 text-green-700'

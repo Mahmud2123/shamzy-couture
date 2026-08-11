@@ -84,7 +84,7 @@ export default function CartPage() {
                   <p className="text-xs text-amber-600 font-semibold uppercase">{product.category}</p>
                   <h3 className="font-semibold text-stone-800 truncate">{product.name}</h3>
                   {customNotes && <p className="text-xs text-stone-500 mt-0.5 truncate">"{customNotes}"</p>}
-                  <p className="text-lg font-bold text-stone-900 mt-1">${product.price.toFixed(2)}</p>
+                  <p className="text-lg font-bold text-stone-900 mt-1">#{product.price.toFixed(2)}</p>
                 </div>
                 <div className="flex flex-col items-end justify-between">
                   <button
@@ -114,7 +114,7 @@ export default function CartPage() {
               <div className="space-y-2 mb-4">
                 <div className="flex justify-between text-stone-600 text-sm">
                   <span>Subtotal ({totalItems} items)</span>
-                  <span>${totalAmount.toFixed(2)}</span>
+                  <span>#{totalAmount.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-stone-600 text-sm">
                   <span>Shipping</span>
@@ -124,7 +124,7 @@ export default function CartPage() {
               <div className="border-t border-stone-200 pt-4 mb-6">
                 <div className="flex justify-between font-bold text-lg">
                   <span>Total</span>
-                  <span>${totalAmount.toFixed(2)}</span>
+                  <span>#{totalAmount.toFixed(2)}</span>
                 </div>
               </div>
               <button
