@@ -1,67 +1,383 @@
-import { PrismaClient } from '@prisma/client';
+import {
+  PrismaClient,
+  ProductCategory,
+  ProductStatus,
+  ProductType,
+  MeasureUnit,
+  Role,
+} from '@prisma/client';
 import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('🌱 Seeding SHAMZY COUTURE database...');
+  console.log(
+    '🌱 Seeding SHAMZY COUTURE database (Hausa/Nigerian Collection)...'
+  );
+
+  // ============================================================
+  // 1. ADMIN USER
+  // ============================================================
 
   const adminPassword = await bcrypt.hash('shamzy123', 12);
-  const admin = await prisma.user.upsert({
-    where: { email: 'shamzy@shamzycouture.com' },
-    update: {},
-    create: { name: 'Shamzy', email: 'shamzy@shamzycouture.com', password: adminPassword, role: 'ADMIN' },
+
+  await prisma.user.upsert({
+    where: {
+      email: 'shamzy@gmail.com',
+    },
+
+    update: {
+      name: 'Shamzy',
+      password: adminPassword,
+      role: Role.ADMIN,
+      isActive: true,
+    },
+
+    create: {
+      name: 'Shamzy',
+      email: 'shamzy@gmail.com',
+      password: adminPassword,
+      role: Role.ADMIN,
+      isActive: true,
+    },
   });
-  console.log('✅ Admin: shamzy@shamzycouture.com / shamzy123');
+
+  console.log('✅ Admin: shamzy@gmail.com / shamzy123');
+
+  // ============================================================
+  // 2. PRODUCTS
+  // ============================================================
 
   const products = [
-    { id: 'shamzy-suit-1', name: 'Signature Bespoke Suit', description: 'Handcrafted from premium Italian wool. Modern slim fit, fully canvassed construction, hand-stitched lapels.', price: 899.99, category: 'SUITS' as const, stock: 8, status: 'ACTIVE' as const, images: ['/images/suit-1.png'] },
-    { id: 'shamzy-suit-2', name: 'Classic Navy Blazer Suit', description: 'Timeless navy blazer suit, expertly tailored. High-quality worsted wool with a subtle sheen.', price: 749.99, category: 'SUITS' as const, stock: 6, status: 'ACTIVE' as const, images: ['/images/suit-2.jpg'] },
-    { id: 'shamzy-jacket-1', name: 'Premium Leather Moto Jacket', description: 'Full-grain Italian leather, slim fit, asymmetric zipper, quilted shoulders. Built to last a lifetime.', price: 499.99, category: 'JACKETS' as const, stock: 7, status: 'ACTIVE' as const, images: ['/images/jacket-1.png'] },
-    { id: 'shamzy-jacket-2', name: 'Wool Cashmere Overcoat', description: 'Premium wool and cashmere blend. Classic tailored fit, notched lapels, satin lining.', price: 649.99, category: 'JACKETS' as const, stock: 4, status: 'ACTIVE' as const, images: ['/images/jacket-2.png'] },
-    { id: 'shamzy-shirt-1', name: 'Custom-Fit Dress Shirt', description: 'Premium Egyptian cotton, made to your exact measurements. Various collar and cuff options.', price: 199.99, category: 'SHIRTS' as const, stock: 15, status: 'ACTIVE' as const, images: ['/images/shirt-1.png'] },
-    { id: 'shamzy-shirt-2', name: 'Italian Silk Blouse', description: 'Finest Italian silk fabric. Classic button-front design with a soft sheen.', price: 249.99, category: 'SHIRTS' as const, stock: 10, status: 'ACTIVE' as const, images: ['/images/shirt-2.png'] },
-    { id: 'shamzy-trouser-1', name: 'Tailored Wool Trousers', description: 'Expertly crafted from fine wool. Classic straight cut with adjustable waistband.', price: 299.99, category: 'TROUSERS' as const, stock: 9, status: 'ACTIVE' as const, images: ['/images/trouser-1.png'] },
-    { id: 'shamzy-accessory-1', name: 'Handmade Silk Tie Collection', description: 'Curated collection of handmade silk ties in various patterns. 100% pure silk. Set of 3.', price: 149.99, category: 'ACCESSORIES' as const, stock: 20, status: 'ACTIVE' as const, images: ['/images/accessory-1.png'] },
-    { id: 'shamzy-accessory-2', name: 'Leather Belt & Wallet Set', description: 'Premium full-grain leather, hand-stitched with brass hardware.', price: 129.99, category: 'ACCESSORIES' as const, stock: 12, status: 'ACTIVE' as const, images: ['/images/accessory-2.png'] },
-    { id: 'shamzy-custom-1', name: 'Luxury Wedding Gown', description: 'Breathtaking custom-designed gown with intricate lace details and dramatic cathedral train.', price: 1599.99, category: 'CUSTOM' as const, stock: 3, status: 'ACTIVE' as const, images: ['/images/dress-1.png'] },
+    {
+      id: 'shamzy-green-riga',
+      name: 'Premium Embroidered Green Babban Riga',
+      description:
+        'Beautiful dark green Babban Riga with intricate silver and white embroidery detailing along the collar and chest. Perfect for formal occasions and weddings.',
+      price: 65000,
+      category: ProductCategory.ROBES,
+      stock: 5,
+      status: ProductStatus.ACTIVE,
+      images: ['/images/green-babban-riga.jpg'],
+    },
+
+    {
+      id: 'shamzy-cream-agbada',
+      name: 'Luxury Cream Agbada Set with Matching Kufi',
+      description:
+        'Handcrafted cream-colored Agbada with detailed geometric embroidery on the neckline and cuffs. Includes matching cap. Premium quality fabric.',
+      price: 85000,
+      category: ProductCategory.ROBES,
+      stock: 3,
+      status: ProductStatus.ACTIVE,
+      images: ['/images/cream-agbada.jpg'],
+    },
+
+    {
+      id: 'shamzy-navy-kurta',
+      name: 'Classic Navy Blue Kurta with Tassel',
+      description:
+        'Elegant navy blue kurta with a minimalist chest placket and a matching blue tassel for a refined everyday traditional look.',
+      price: 35000,
+      category: ProductCategory.ROBES,
+      stock: 10,
+      status: ProductStatus.ACTIVE,
+      images: ['/images/navy-kurta.jpg'],
+    },
+
+    {
+      id: 'shamzy-sage-kurta',
+      name: 'Sage Green Casual Kurta with Silver Tassel',
+      description:
+        'Modern sage green kurta featuring subtle chest pleating and a silver tassel. A stylish blend of tradition and contemporary fashion.',
+      price: 40000,
+      category: ProductCategory.ROBES,
+      stock: 8,
+      status: ProductStatus.ACTIVE,
+      images: ['/images/sage-kurta.jpg'],
+    },
+
+    {
+      id: 'shamzy-abaya-green',
+      name: 'Elegant Olive Green Abaya with Beaded Cuffs',
+      description:
+        'Stunning olive green abaya with delicate beadwork embroidery along the front and spectacular floral beaded cuffs. Comes with matching headscarf.',
+      price: 75000,
+      category: ProductCategory.ABAYAS,
+      stock: 4,
+      status: ProductStatus.ACTIVE,
+      images: ['/images/green-abaya.jpg'],
+    },
+
+    {
+      id: 'shamzy-abaya-white',
+      name: 'Pure White Embroidered Abaya',
+      description:
+        'Elegant pure white abaya with subtle stone and bead detailing running down the front. Sophisticated and timeless.',
+      price: 70000,
+      category: ProductCategory.ABAYAS,
+      stock: 4,
+      status: ProductStatus.ACTIVE,
+      images: ['/images/white-abaya.jpg'],
+    },
+
+    {
+      id: 'shamzy-abaya-charcoal',
+      name: 'Charcoal Grey Beaded Abaya',
+      description:
+        'Sophisticated charcoal grey abaya featuring beautiful circular bead patterns running vertically down the front and along the sleeves.',
+      price: 80000,
+      category: ProductCategory.ABAYAS,
+      stock: 3,
+      status: ProductStatus.ACTIVE,
+      images: ['/images/charcoal-abaya.jpg'],
+    },
+
+    {
+      id: 'shamzy-abaya-blue',
+      name: 'Teal Blue Crystal Embellished Abaya',
+      description:
+        'Vibrant teal blue abaya with glittering crystal detailing down the center. A stunning piece for celebrations.',
+      price: 82000,
+      category: ProductCategory.ABAYAS,
+      stock: 3,
+      status: ProductStatus.ACTIVE,
+      images: ['/images/teal-abaya.jpg'],
+    },
+
+    {
+      id: 'shamzy-abaya-caramel',
+      name: 'Caramel Brown Embroidered Abaya',
+      description:
+        'Rich caramel brown abaya with intricate embroidery work, perfect for autumn and evening events. Elegant fit with a matching scarf.',
+      price: 78000,
+      category: ProductCategory.ABAYAS,
+      stock: 3,
+      status: ProductStatus.ACTIVE,
+      images: ['/images/caramel-abaya.jpg'],
+    },
+
+    {
+      id: 'shamzy-kufi-knit',
+      name: 'Black & White Geometric Kufi Cap',
+      description:
+        'Traditional knitted kufi cap with a striking black and white diamond geometric pattern. Size 23.5 inches.',
+      price: 8000,
+      category: ProductCategory.ACCESSORIES,
+      stock: 20,
+      status: ProductStatus.ACTIVE,
+      images: ['/images/kufi-knit.jpg'],
+    },
+
+    {
+      id: 'shamzy-kufi-set',
+      name: 'Woven Kufi Cap Set (3 Colors)',
+      description:
+        'Set of 3 woven kufi caps with traditional diamond patterns. Comes in beige/black, blue/multicolor, and brown/black. Size 22.5 inches.',
+      price: 15000,
+      category: ProductCategory.ACCESSORIES,
+      stock: 10,
+      status: ProductStatus.ACTIVE,
+      images: ['/images/kufi-set.jpg'],
+    },
+
+    {
+      id: 'shamzy-sandals-grey',
+      name: 'Luxury Grey Leather Sandals with Buckle',
+      description:
+        'Premium grey leather slide sandals with a modern criss-cross strap and silver metallic buckle. Perfect for pairing with Babban Riga.',
+      price: 25000,
+      category: ProductCategory.FOOTWEAR,
+      stock: 12,
+      status: ProductStatus.ACTIVE,
+      images: ['/images/grey-sandals.jpg'],
+    },
+
+    {
+      id: 'shamzy-sandals-olive',
+      name: 'Olive Green Textured Leather Sandals',
+      description:
+        'Stylish olive green cross-strap sandals made from textured leather. A fashionable matching piece for traditional attire.',
+      price: 22000,
+      category: ProductCategory.FOOTWEAR,
+      stock: 12,
+      status: ProductStatus.ACTIVE,
+      images: ['/images/olive-sandals.jpg'],
+    },
   ];
 
-  for (const p of products) {
-    await prisma.product.upsert({ where: { id: p.id }, update: {}, create: p });
+  // ============================================================
+  // SEED PRODUCTS
+  // ============================================================
+
+  for (const product of products) {
+    await prisma.product.upsert({
+      where: {
+        id: product.id,
+      },
+
+      update: {
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        category: product.category,
+        stock: product.stock,
+        status: product.status,
+        images: product.images,
+      },
+
+      create: product,
+    });
   }
+
   console.log(`✅ ${products.length} products seeded`);
 
-  const userPassword = await bcrypt.hash('customer123', 12);
-  const customer = await prisma.user.upsert({
-    where: { email: 'customer@example.com' },
-    update: {},
-    create: { name: 'Demo Customer', email: 'customer@example.com', password: userPassword, role: 'CUSTOMER' },
-  });
-  console.log('✅ Customer: customer@example.com / customer123');
+  // ============================================================
+  // 3. DEMO CUSTOMER
+  // ============================================================
 
-  // Sample measurements
-  await prisma.measurement.upsert({
-    where: { id: 'sample-m-suit' },
-    update: {},
+  const customerPassword = await bcrypt.hash('shamzy123', 12);
+
+  const customer = await prisma.user.upsert({
+    where: {
+      email: 'shamaki@gmail.com',
+    },
+
+    update: {
+      name: 'Demo Customer',
+      password: customerPassword,
+      role: Role.CUSTOMER,
+      isActive: true,
+    },
+
     create: {
-      id: 'sample-m-suit', userId: customer.id, name: 'Work Suit', productType: 'SUIT', unit: 'CM', isDefault: true,
-      measurements: { chest: 102, waist: 86, hips: 100, shoulder: 46, sleeve: 64, length: 76, jacketLength: 74, trouserWaist: 84, inseam: 81, outseam: 107 },
+      name: 'Demo Customer',
+      email: 'shamaki@gmail.com',
+      password: customerPassword,
+      role: Role.CUSTOMER,
+      isActive: true,
     },
   });
+
+  console.log('✅ Customer: shamaki@gmail.com / shamzy123');
+
+  // ============================================================
+  // 4. SAMPLE MEASUREMENT - BABBAN RIGA
+  // ============================================================
+
   await prisma.measurement.upsert({
-    where: { id: 'sample-m-shirt' },
-    update: {},
+    where: {
+      id: 'sample-m-riga',
+    },
+
+    update: {
+      userId: customer.id,
+      name: 'Custom Babban Riga',
+      productType: ProductType.ROBES,
+      unit: MeasureUnit.CM,
+      isDefault: true,
+      measurements: {
+        chest: 112,
+        waist: 96,
+        hips: 104,
+        shoulder: 48,
+        sleeve: 68,
+        length: 145,
+        cuff: 30,
+      },
+    },
+
     create: {
-      id: 'sample-m-shirt', userId: customer.id, name: 'Casual Shirts', productType: 'SHIRT', unit: 'CM', isDefault: true,
-      measurements: { collar: 40, chest: 104, waist: 88, shoulder: 46, sleeve: 65, length: 78, cuff: 25 },
+      id: 'sample-m-riga',
+      userId: customer.id,
+      name: 'Custom Babban Riga',
+      productType: ProductType.ROBES,
+      unit: MeasureUnit.CM,
+      isDefault: true,
+      measurements: {
+        chest: 112,
+        waist: 96,
+        hips: 104,
+        shoulder: 48,
+        sleeve: 68,
+        length: 145,
+        cuff: 30,
+      },
     },
   });
+
+  // ============================================================
+  // 5. SAMPLE MEASUREMENT - ABAYA
+  // ============================================================
+
+  await prisma.measurement.upsert({
+    where: {
+      id: 'sample-m-abaya',
+    },
+
+    update: {
+      userId: customer.id,
+      name: 'Custom Abaya',
+      productType: ProductType.ABAYAS,
+      unit: MeasureUnit.CM,
+      isDefault: true,
+      measurements: {
+        chest: 106,
+        waist: 92,
+        hips: 110,
+        shoulder: 42,
+        sleeve: 62,
+        length: 150,
+        cuff: 24,
+      },
+    },
+
+    create: {
+      id: 'sample-m-abaya',
+      userId: customer.id,
+      name: 'Custom Abaya',
+      productType: ProductType.ABAYAS,
+      unit: MeasureUnit.CM,
+      isDefault: true,
+      measurements: {
+        chest: 106,
+        waist: 92,
+        hips: 110,
+        shoulder: 42,
+        sleeve: 62,
+        length: 150,
+        cuff: 24,
+      },
+    },
+  });
+
   console.log('✅ Sample measurements seeded');
 
-  console.log('\n🎉 SHAMZY COUTURE seeding complete!');
+  // ============================================================
+  // 6. COMPLETE
+  // ============================================================
+
+  console.log('');
+  console.log(
+    '🎉 SHAMZY COUTURE (Hausa/Nigerian Collection) seeding complete!'
+  );
+  console.log('');
+  console.log('Login accounts:');
+  console.log('Admin:    shamzy@gmail.com / shamzy123');
+  console.log('Customer: shamaki@gmail.com / shamzy123');
 }
 
+// ============================================================
+// EXECUTE SEED
+// ============================================================
+
 main()
-  .catch(e => { console.error('❌', e); process.exit(1); })
-  .finally(() => prisma.$disconnect());
+  .catch((error) => {
+    console.error('');
+    console.error('❌ SEED ERROR:');
+    console.error(error);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

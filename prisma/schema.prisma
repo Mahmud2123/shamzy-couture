@@ -47,15 +47,6 @@ model Product {
   orderItems OrderItem[]
 }
 
-enum ProductCategory {
-  SUITS
-  SHIRTS
-  TROUSERS
-  JACKETS
-  ACCESSORIES
-  CUSTOM
-}
-
 enum ProductStatus {
   ACTIVE
   INACTIVE
@@ -127,12 +118,29 @@ model Measurement {
   user User @relation(fields: [userId], references: [id])
 }
 
+
+enum ProductCategory {
+  SUITS
+  SHIRTS
+  TROUSERS
+  JACKETS
+  ACCESSORIES
+  CUSTOM
+  ROBES
+  ABAYAS
+  FOOTWEAR
+}
+
+
 enum ProductType {
   SUIT
   SHIRT
   TROUSER
   JACKET
   CUSTOM
+  ROBES
+  ABAYAS
+  FOOTWEAR
 }
 
 enum MeasureUnit {
